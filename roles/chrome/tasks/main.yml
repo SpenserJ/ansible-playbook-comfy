@@ -1,0 +1,14 @@
+---
+- name: Check for Google Chrome
+  stat: path=/usr/bin/google-chrome
+  register: chrome_installed
+- name: Download Google Chrome
+  get_url: url=https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+           dest=/tmp/google-chrome-stable_current_amd64.deb
+  when: chrome_installed.stat.exists == false
+- name: Install Google Chrome
+  command: dpkg -i /tmp/google-chrome-stable_current_amd64.deb
+  when: chrome_installed.stat.exists == false
+- name: Install dependencies
+  command: apt-get -fy install
+  when: chrome_installed.stat.exists == false

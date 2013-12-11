@@ -1,31 +1,7 @@
 ---
 - hosts: all
   sudo: true
-  tasks:
-  - name: Install Dependencies
-    apt: pkg=git-core state=latest
-  - name: Install Homeshick
-    git: repo=git://github.com/andsens/homeshick.git
-         dest=/home/spenser/.homesick/repos/homeshick
-         update=yes
-  - name: Install useful applications
-    apt: pkg={{ item }} state=latest
-    with_items:
-    - tmux
-    - vim
-    - zsh
-  - name: Check for dotfiles
-    stat: path=/home/spenser/.homesick/repos/dotfiles
-    register: dotfiles
-  - name: Clone dotfiles
-    shell: su -c "~/.homesick/repos/homeshick/bin/homeshick clone SpenserJ/dotfiles" spenser
-    when: dotfiles.stat.exists == false
-  - name: Pull dotfiles
-    shell: su -c "~/.homesick/repos/homeshick/bin/homeshick pull -f dotfiles" spenser
-    when: dotfiles.stat.exists == true
-  - name: Symlink dotfiles
-    shell: su -c "~/.homesick/repos/homeshick/bin/homeshick symlink -f dotfiles" spenser
-  - name: Change shell to zsh
-    user: name=spenser shell=/usr/bin/zsh
-  - name: Download Google Chrome
-# https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  roles:
+  - dotfiles
+  - chrome
+  - dropbox

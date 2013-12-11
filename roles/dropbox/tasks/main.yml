@@ -1,0 +1,17 @@
+---
+- name: Check for Dropbox
+  stat: path=/usr/bin/dropbox
+  register: dropbox_installed
+- name: Download Dropbox
+  get_url: url=https://www.dropbox.com/download?dl=packages/debian/dropbox_1.6.0_amd64.deb
+           dest=/tmp/dropbox_amd64.deb
+  when: dropbox_installed.stat.exists == false
+- name: Install Dropbox
+  command: dpkg -i /tmp/dropbox_amd64.deb
+  when: dropbox_installed.stat.exists == false
+- name: Install dependencies
+  command: apt-get -fy install
+  when: dropbox_installed.stat.exists == false
+- name: Start Dropbox daemon
+  command: dropbox start -i
+  when: dropbox_installed.stat.exists == false
