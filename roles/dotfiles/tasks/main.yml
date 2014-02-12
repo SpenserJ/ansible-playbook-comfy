@@ -6,7 +6,7 @@
        dest=/home/spenser/.homesick/repos/homeshick
        update=yes
 - name: Install useful applications
-  apt: pkg={{ item }} state=latest
+  apt: pkg={{ item }} state=latest update_cache=yes
   with_items:
   - tmux
   - vim
@@ -15,12 +15,12 @@
   stat: path=/home/spenser/.homesick/repos/dotfiles
   register: dotfiles
 - name: Clone dotfiles
-  shell: su -c "~/.homesick/repos/homeshick/bin/homeshick clone SpenserJ/dotfiles" spenser
+  shell: su -c "~/.homesick/repos/homeshick/bin/homeshick clone --batch SpenserJ/dotfiles" spenser
   when: dotfiles.stat.exists == false
 - name: Pull dotfiles
-  shell: su -c "~/.homesick/repos/homeshick/bin/homeshick pull -f dotfiles" spenser
+  shell: su -c "~/.homesick/repos/homeshick/bin/homeshick pull --batch dotfiles" spenser
   when: dotfiles.stat.exists == true
 - name: Symlink dotfiles
-  shell: su -c "~/.homesick/repos/homeshick/bin/homeshick symlink -f dotfiles" spenser
+  shell: su -c "~/.homesick/repos/homeshick/bin/homeshick symlink --batch dotfiles" spenser
 - name: Change shell to zsh
   user: name=spenser shell=/usr/bin/zsh
