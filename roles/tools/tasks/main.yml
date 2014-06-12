@@ -3,5 +3,24 @@
   apt: pkg={{ item }} state=latest
   with_items:
   - mono-complete
+  - keepass2
   - git-core
   - vim
+
+- name: Check for KeeAgent
+  stat: path=/usr/lib/keepass2/KeeAgent.plgx
+  register: installed_keeagent
+- name: Download KeeAgent
+  get_url: url={{ keeagent_url }} dest=/tmp/keeagent.zip
+  when: installed_keeagent.stat.exists == false
+- name: Extract KeeAgent
+  command: unzip /tmp/keeagent.zip -d /usr/lib/keepass2/
+  when: installed_keeagent.stat.exists == false
+
+- name: Check for KeePassHttp
+  stat: path=/usr/lib/keepass2/KeePassHttp.plgx
+  register: installed_keepasshttp
+- name: Download KeePassHttp
+  get_url: url=https://github.com/pfn/keepasshttp/raw/master/KeePassHttp.plgx dest=/usr/lib/keepass2/KeePassHttp.plgx
+  when: installed_keepasshttp.stat.exists == false
+  
