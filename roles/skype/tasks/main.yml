@@ -1,0 +1,14 @@
+---
+- name: Check for Skype
+  stat: path=/usr/bin/skype
+  register: skype_installed
+- name: Download Skype
+  get_url: url=http://download.skype.com/linux/skype-ubuntu-precise_4.2.0.13-1_i386.deb
+           dest=/tmp/skype.deb
+  when: skype_installed.stat.exists == false
+- name: Install Skype
+  command: dpkg -i /tmp/skype.deb
+  when: skype_installed.stat.exists == false
+- name: Install dependencies
+  command: apt-get -fy install
+  when: skype_installed.stat.exists == false
