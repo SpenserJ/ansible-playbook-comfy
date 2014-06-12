@@ -2,7 +2,16 @@
 - hosts: all
   sudo: true
   roles:
+  - base
+
+# Run this without sudo
+- hosts: dotfiles
+  roles:
   - dotfiles
-  - chrome
+
+- hosts: desktop
+  sudo: true
+  roles:
   - dropbox
+  - chrome
   - tools

@@ -1,1 +1,5 @@
+[dotfiles]
+localhost       ansible_connection=local     dotfiles_repo='https://github.com/SpenserJ/dotfiles.git'
+
+[desktop]
 localhost       ansible_connection=local

@@ -1,26 +1,19 @@
 ---
-- name: Install Dependencies
-  apt: pkg=git-core state=latest
 - name: Install Homeshick
   git: repo=git://github.com/andsens/homeshick.git
-       dest=/home/spenser/.homesick/repos/homeshick
+       dest=/home/{{ ansible_user_id }}/.homesick/repos/homeshick
        update=yes
-- name: Install useful applications
-  apt: pkg={{ item }} state=latest update_cache=yes
-  with_items:
-  - tmux
-  - vim
-  - zsh
 - name: Check for dotfiles
-  stat: path=/home/spenser/.homesick/repos/dotfiles
+  stat: path=/home/{{ ansible_user_id }}/.homesick/repos/dotfiles
   register: dotfiles
 - name: Clone dotfiles
-  shell: su -c "~/.homesick/repos/homeshick/bin/homeshick clone --batch SpenserJ/dotfiles" spenser
+  shell: /home/{{ ansible_user_id }}/.homesick/repos/homeshick/bin/homeshick clone --batch {{ dotfiles_repo }}
   when: dotfiles.stat.exists == false
 - name: Pull dotfiles
-  shell: su -c "~/.homesick/repos/homeshick/bin/homeshick pull --batch dotfiles" spenser
+  shell: /home/{{ ansible_user_id }}/.homesick/repos/homeshick/bin/homeshick pull --batch dotfiles
   when: dotfiles.stat.exists == true
 - name: Symlink dotfiles
-  shell: su -c "~/.homesick/repos/homeshick/bin/homeshick symlink --batch dotfiles" spenser
+  shell: /home/{{ ansible_user_id }}/.homesick/repos/homeshick/bin/homeshick symlink --batch dotfiles
 - name: Change shell to zsh
-  user: name=spenser shell=/usr/bin/zsh
+  user: name={{ ansible_user_id }} shell=/usr/bin/zsh
+  sudo: yes
