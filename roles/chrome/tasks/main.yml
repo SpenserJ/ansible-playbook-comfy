@@ -8,7 +8,9 @@
   when: chrome_installed.stat.exists == false
 - name: Install Google Chrome
   command: dpkg -i /tmp/google-chrome-stable_current_amd64.deb
+  ignore_errors: yes
   when: chrome_installed.stat.exists == false
 - name: Install dependencies
   command: apt-get -fy install
+  ignore_errors: yes
   when: chrome_installed.stat.exists == false
