@@ -3,6 +3,7 @@
   git: repo=git://github.com/andsens/homeshick.git
        dest=/home/{{ ansible_user_id }}/.homesick/repos/homeshick
        update=yes
+       accept_hostkey=yes
 - name: Check for dotfiles
   stat: path=/home/{{ ansible_user_id }}/.homesick/repos/dotfiles
   register: dotfiles
