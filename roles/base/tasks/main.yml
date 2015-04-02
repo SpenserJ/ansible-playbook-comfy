@@ -1,6 +1,14 @@
 ---
+- name: Install an updated PPA
+  apt_repository: repo='ppa:pi-rho/dev' update_cache=no
+- name: Install the Git Maintainers PPA
+  apt_repository: repo='ppa:git-core/ppa' update_cache=no
+
+- name: Update Apt
+  apt: update_cache=yes
+
 - name: Install useful applications
-  apt: pkg={{ item }} state=latest update_cache=yes
+  apt: pkg={{ item }} state=latest
   with_items:
   - git-core
   - tmux

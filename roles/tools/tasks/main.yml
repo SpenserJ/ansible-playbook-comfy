@@ -4,8 +4,6 @@
   with_items:
   - mono-complete
   - keepass2
-  - git-core
-  - vim
 
 - name: Check for KeeAgent
   stat: path=/usr/lib/keepass2/KeeAgent.plgx
