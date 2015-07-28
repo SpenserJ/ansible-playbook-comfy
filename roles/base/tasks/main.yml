@@ -10,7 +10,7 @@
 - name: Install useful applications
   apt: pkg={{ item }} state=latest
   with_items:
-  - git-core
+  - git
   - tmux
   - vim
   - zsh
