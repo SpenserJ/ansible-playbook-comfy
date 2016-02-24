@@ -16,3 +16,4 @@
   - vim
   - zsh
   - build-essential
+  - curl
