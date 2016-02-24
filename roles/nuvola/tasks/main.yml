@@ -1,5 +1,0 @@
----
-- name: Configure Nuvola PPA
-  apt_repository: repo='ppa:nuvola-player-builders/stable'
-- name: Install Nuvola
-  apt: pkg=nuvolaplayer state=latest
