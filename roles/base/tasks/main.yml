@@ -1,8 +1,8 @@
 ---
 - name: Install an updated PPA
-  apt_repository: repo='ppa:pi-rho/dev' update_cache=no
+  command: add-apt-repository -y ppa:pi-rho/dev
 - name: Install the Git Maintainers PPA
-  apt_repository: repo='ppa:git-core/ppa' update_cache=no
+  command: add-apt-repository -y ppa:git-core/ppa
 
 - name: Update Apt
   apt: update_cache=yes

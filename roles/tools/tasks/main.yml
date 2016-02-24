@@ -1,6 +1,8 @@
 ---
 - name: Install the KeePass Plugin PPA
-  apt_repository: repo='ppa:dlech/keepass2-plugins'
+  command: add-apt-repository -y ppa:dlech/keepass2-plugins
+- name: Update Aptitude
+  apt: update_cache=yes
 - name: Install Tools
   apt: pkg={{ item }} state=latest
   with_items:
