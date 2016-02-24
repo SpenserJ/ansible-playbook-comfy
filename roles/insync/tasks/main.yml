@@ -1,0 +1,9 @@
+- name: Install Insync repository GPG key
+  shell: wget -qO - https://d2t3ff60b2tol4.cloudfront.net/services@insynchq.com.gpg.key | apt-key add -
+- name: Install Insync repository
+  lineinfile: dest=/etc/apt/sources.list
+              line="deb http://apt.insynchq.com/mint rosa non-free contrib"
+- name: Update Aptitude
+  apt: update_cache=yes
+- name: Install Insync
+  apt: name=insync state=latest

@@ -12,8 +12,8 @@
 - hosts: desktop
   sudo: true
   roles:
-  - dropbox
   - chrome
   - skype
   - tools
+  - insync
   - i3wm
