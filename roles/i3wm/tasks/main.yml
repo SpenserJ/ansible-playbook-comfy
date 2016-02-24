@@ -2,6 +2,7 @@
 - name: Install i3
   apt: pkg={{ item }} state=present
   with_items:
+  - suckless-tools
   - i3
   - i3-wm
   - i3status
